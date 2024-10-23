@@ -1,4 +1,11 @@
 .main
   display: flex
   gap: 20px
-  // flex-direction: column
+
+@media screen and (max-width: 803px) 
+  .main
+    flex-direction: column
+
+@media screen and (max-width: 542px)
+  .main
+    gap: 10px

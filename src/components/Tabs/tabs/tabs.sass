@@ -2,9 +2,23 @@
 @use './__tab/_active/tabs__tab_active'
 
 .tabs
+  display: flex
   height: 50px
   display: flex
   border-radius: 8px
   overflow: hidden
   letter-spacing: 0.5px
   border: 0.5px solid #DFE5EC
+  font-weight: 600
+
+@media screen and (max-width: 542px)
+  .tabs
+    flex-direction: column
+    height: auto
+    width: 320px
+    margin: 0 auto
+
+@media screen and (max-width: 320px)
+  .tabs
+    border-radius: 0
+    border: none

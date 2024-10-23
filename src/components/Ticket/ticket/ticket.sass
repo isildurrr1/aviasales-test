@@ -1,5 +1,39 @@
+@import ./__description/ticket__description
+@import ./__flight/ticket__flight
+@import ./__header/ticket__header
+@import ./__info/ticket__info
+@import ./__logo/ticket__logo
+@import ./__price/ticket__price
+@import ./__span-data/ticket__span-data
+@import ./__span-title/ticket__span-title
+
 .ticket
+  display: flex
+  flex-direction: column
   height: 184px
   background-color: #FFFFFF
   border-radius: 5px
   box-shadow: 0 2px 8px 0 #0000001A
+  padding: 20px
+  box-sizing: border-box
+  gap: 20px
+  cursor: pointer
+  user-select: none
+  transition: transform 0.3s
+  &:hover
+    transform: scale(1.02)
+  &:active
+    transform: scale(0.97)
+
+@media screen and (max-width: 542px)
+  .ticket
+    width: 320px
+    margin: 0 auto
+    height: auto
+    padding: 10px
+    gap: 10px
+
+@media screen and (max-width: 330px)
+  .ticket
+    border-radius: 0
+    width: 100%
