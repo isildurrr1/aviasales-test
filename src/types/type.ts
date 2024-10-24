@@ -1,0 +1,1 @@
+export type TransferType = 'direct' | 'one' | 'two' | 'three'

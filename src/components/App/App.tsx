@@ -2,7 +2,7 @@ import Header from '../Header/Header'
 import Main from '../Main/Main'
 import './app/app.sass'
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <div className="app">
       <Header />
