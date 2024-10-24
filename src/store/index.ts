@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import checkboxesReducer from './checkboxesSlice'
+import sortReducer from './sortSlice'
 
 const store = configureStore({
   reducer: {
     checkboxes: checkboxesReducer,
+    sortCriteria: sortReducer,
   },
 })
 

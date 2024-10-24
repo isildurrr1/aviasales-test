@@ -1,25 +1,38 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { TransferType } from '../types/type'
+import { CheckboxesType, ToggleTransferActionType } from '../types/type'
+
+const initialState: CheckboxesType = {
+  all: false, // all checked/unchecked
+  transfers: {
+    direct: false, // direct flight
+    one: false, // one transfer
+    two: false, // two transfers
+    three: false, // three transfers
+  },
+}
 
 const checkboxesSlice = createSlice({
   name: 'checkboxes',
-  initialState: {
-    all: false, // all checked/unchecked
-    transfers: {
-      direct: false, // direct flight
-      one: false, // one transfer
-      two: false, // two transfers
-      three: false, // three transfers
-    },
-  },
+  initialState,
   reducers: {
-    toggleAll(state, action) {
-      console.log(state)
-      console.log(action)
+    toggleAll(state, action: PayloadAction<boolean>) {
+      state.all = action.payload
+      if (action.payload) {
+        Object.keys(state.transfers).forEach((key) => {
+          state.transfers[key as keyof typeof state.transfers] = false
+        })
+      } else {
+        state.transfers = initialState.transfers
+      }
     },
-    toggleTransfer(state, action: PayloadAction<{ checkInfo: boolean; transfer: TransferType }>) {
-      state.transfers[action.payload.transfer] = action.payload.checkInfo
+    toggleTransfer(state, action: PayloadAction<ToggleTransferActionType>) {
+      state.transfers[action.payload.transfer] = action.payload.checkState
+      if (!Object.values(state.transfers).includes(false)) {
+        state.all = true
+      } else {
+        state.all = false
+      }
     },
   },
 })

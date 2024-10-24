@@ -1,11 +1,17 @@
 import './filter/filter.sass'
 
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks'
-import { toggleTransfer } from '../../store/checkboxesSlice'
+import { toggleAll, toggleTransfer } from '../../store/checkboxesSlice'
+import { TransferKeysType } from '../../types/type'
 
 const Filter = () => {
-  const all = useAppSelector((state) => state.checkboxes.all)
+  const checkboxesStore = useAppSelector((state) => state.checkboxes)
   const dispatch = useAppDispatch()
+
+  const createActionCheckbox = (status: boolean, transferString: TransferKeysType) => {
+    return { checkState: status, transfer: transferString }
+  }
+
   return (
     <div className="filter">
       <h4 className="filter__title">Количество пересадок</h4>
@@ -15,8 +21,8 @@ const Filter = () => {
             className="filter__checkbox"
             type="checkbox"
             id="all"
-            checked={all}
-            // onChange={(e) => dispatch(toggleTransfer(e.target.checked))}
+            checked={checkboxesStore.all}
+            onChange={(e) => dispatch(toggleAll(e.target.checked))}
           />
           <span className="filter__custom-checkbox" />
           Все
@@ -26,7 +32,8 @@ const Filter = () => {
             className="filter__checkbox"
             type="checkbox"
             id="withOut"
-            onChange={(e) => dispatch(toggleTransfer({ checkInfo: e.target.checked, transfer: 'direct' }))}
+            checked={checkboxesStore.transfers.direct}
+            onChange={(e) => dispatch(toggleTransfer(createActionCheckbox(e.target.checked, 'direct')))}
           />
           <span className="filter__custom-checkbox" />
           Без пересадок
@@ -36,7 +43,8 @@ const Filter = () => {
             className="filter__checkbox"
             type="checkbox"
             id="oneTransfer"
-            onChange={(e) => dispatch(toggleTransfer({ checkInfo: e.target.checked, transfer: 'one' }))}
+            checked={checkboxesStore.transfers.one}
+            onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'one' }))}
           />
           <span className="filter__custom-checkbox" />1 пересадка
         </label>
@@ -45,7 +53,8 @@ const Filter = () => {
             className="filter__checkbox"
             type="checkbox"
             id="twoTransfer"
-            onChange={(e) => dispatch(toggleTransfer({ checkInfo: e.target.checked, transfer: 'two' }))}
+            checked={checkboxesStore.transfers.two}
+            onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'two' }))}
           />
           <span className="filter__custom-checkbox" />2 пересадки
         </label>
@@ -54,7 +63,8 @@ const Filter = () => {
             className="filter__checkbox"
             type="checkbox"
             id="threeTransfer"
-            onChange={(e) => dispatch(toggleTransfer({ checkInfo: e.target.checked, transfer: 'three' }))}
+            checked={checkboxesStore.transfers.three}
+            onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'three' }))}
           />
           <span className="filter__custom-checkbox" />3 пересадки
         </label>
