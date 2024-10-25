@@ -7,6 +7,7 @@ import './ticket-list/ticket-list.sass'
 
 const TicketList = () => {
   const tickets = useAppSelector((state) => state.tickets.list)
+  console.log(tickets)
   return (
     <div className="ticket-list">
       <Tabs />

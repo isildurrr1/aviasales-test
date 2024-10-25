@@ -3,6 +3,7 @@ import { TicketProps } from '../../types/type'
 import './ticket/ticket.sass'
 
 const Ticket: React.FC<TicketProps> = ({ ticket }) => {
+  console.log(ticket)
   const firstSegment = ticket.segments[0]
   const secondSegment = ticket.segments[1]
 

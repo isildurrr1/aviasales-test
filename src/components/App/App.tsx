@@ -10,7 +10,9 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <Header />
-      {loading && <LinearProgress variant="determinate" value={loadedTickets / 10000} style={{ marginTop: '-4px' }} />}
+      {loading && (
+        <LinearProgress variant="determinate" value={(loadedTickets / 10500) * 100} style={{ marginTop: '-4px' }} />
+      )}
       <Main />
     </div>
   )

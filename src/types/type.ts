@@ -55,6 +55,13 @@ export interface TicketsType {
   error: null | string
 }
 
+export interface fetchTicketsType {
+  tickets: TicketType[]
+  stop: boolean
+  sort: SortType
+  checkboxes: CheckboxesType
+}
+
 export interface TicketsResponseType {
   tickets: TicketType[]
   stop: boolean
@@ -62,4 +69,10 @@ export interface TicketsResponseType {
 
 export interface SeacrhIdResponseType {
   searchId: string
+}
+
+export interface RootState {
+  checkboxes: CheckboxesType
+  sortCriteria: SortType
+  tickets: TicketsType
 }

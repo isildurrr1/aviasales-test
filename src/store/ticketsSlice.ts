@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { SeacrhIdResponseType, TicketsResponseType, TicketsType } from '../types/type'
-
-import { RootState } from './types'
+import { fetchTicketsType, RootState, SeacrhIdResponseType, TicketsType } from '../types/type'
 
 export const fetchSearchId = createAsyncThunk<SeacrhIdResponseType>('tickets/fetchSearchId', async () => {
   const response = await fetch('https://aviasales-test-api.kata.academy/search')
@@ -10,13 +8,23 @@ export const fetchSearchId = createAsyncThunk<SeacrhIdResponseType>('tickets/fet
   return searchId
 })
 
-export const fetchTickets = createAsyncThunk<TicketsResponseType, void, { state: RootState }>(
+export const fetchTickets = createAsyncThunk<fetchTicketsType | null, void, { state: RootState }>(
   'tickets/fetchTickets',
-  async (_, { getState }) => {
+  async (_, { dispatch, getState }) => {
     const state = getState()
-    const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${state.tickets.searchId}`)
-    const tickets = await response.json()
-    return tickets
+    try {
+      const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${state.tickets.searchId}`)
+      const tickets = await response.json()
+      if (!tickets.stop) {
+        dispatch(fetchTickets())
+        return { tickets: tickets.tickets, stop: tickets.stop, sort: state.sortCriteria, checkboxes: state.checkboxes }
+      }
+      return { tickets: tickets.tickets, stop: tickets.stop, sort: state.sortCriteria, checkboxes: state.checkboxes }
+    } catch (error) {
+      console.error('Ошибка при загрузке билетов, продолжаем:', error)
+      dispatch(fetchTickets())
+      return null
+    }
   }
 )
 
@@ -30,12 +38,7 @@ const initialState: TicketsType = {
 const ticketsSlice = createSlice({
   name: 'tickets',
   initialState,
-  reducers: {
-    // priceSort(state, action) {
-    //   console.log(state)
-    //   console.log(action)
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchSearchId.pending, (state) => {
@@ -44,20 +47,23 @@ const ticketsSlice = createSlice({
       })
       .addCase(fetchSearchId.fulfilled, (state, action) => {
         state.searchId = action.payload.searchId
-        state.loading = false
+        state.loading = true
       })
       .addCase(fetchTickets.pending, (state) => {
         state.loading = true
         state.error = null
       })
       .addCase(fetchTickets.fulfilled, (state, action) => {
-        state.loading = false
+        state.loading = true
         state.error = null
-        state.list = action.payload.tickets
+        if (action.payload && action.payload.tickets) {
+          state.list = state.list.concat(action.payload.tickets).sort((a, b) => a.price - b.price)
+          if (action.payload.stop === true) {
+            state.loading = false
+          }
+        }
       })
   },
 })
-
-// export const { priceSort } = ticketsSlice.actions
 
 export default ticketsSlice.reducer
