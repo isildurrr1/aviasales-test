@@ -22,3 +22,40 @@ export type SortCriteria = 'cheap' | 'fast'
 export interface SortType {
   ticketSortingMethod: SortCriteria
 }
+
+export interface Ticket {
+  price: number
+  carrier: string
+  segments: [
+    {
+      origin: string
+      destination: string
+      date: string
+      stops: string[]
+      duration: number
+    },
+    {
+      origin: string
+      destination: string
+      date: string
+      stops: string[]
+      duration: number
+    }
+  ]
+}
+
+export interface TicketsType {
+  searchId: undefined | string
+  list: Ticket[]
+  loading: boolean
+  error: null | string
+}
+
+export interface TicketsResponseType {
+  tickets: Ticket[]
+  stop: boolean
+}
+
+export interface SeacrhIdResponseType {
+  searchId: string
+}

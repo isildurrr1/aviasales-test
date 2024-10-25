@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/hooks'
 import { toggleAll, toggleTransfer } from '../../store/checkboxesSlice'
 import { TransferKeysType } from '../../types/type'
 
-const Filter = () => {
+const Filter: React.FC = () => {
   const checkboxesStore = useAppSelector((state) => state.checkboxes)
   const dispatch = useAppDispatch()
 

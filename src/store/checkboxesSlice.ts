@@ -20,7 +20,7 @@ const checkboxesSlice = createSlice({
       state.all = action.payload
       if (action.payload) {
         Object.keys(state.transfers).forEach((key) => {
-          state.transfers[key as keyof typeof state.transfers] = false
+          state.transfers[key as keyof typeof state.transfers] = true
         })
       } else {
         state.transfers = initialState.transfers
