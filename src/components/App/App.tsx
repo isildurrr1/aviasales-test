@@ -1,20 +1,16 @@
-import { useEffect } from 'react'
+import LinearProgress from '@mui/material/LinearProgress'
 
+import useTickets from '../../hooks/useTickets'
 import Header from '../Header/Header'
 import Main from '../Main/Main'
 import './app/app.sass'
-import { useAppDispatch } from '../../hooks/hooks'
-import { fetchSearchId } from '../../store/ticketsSlice'
 
 const App: React.FC = () => {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(fetchSearchId())
-  }, [dispatch])
-
+  const { loading, loadedTickets } = useTickets()
   return (
     <div className="app">
       <Header />
+      {loading && <LinearProgress variant="determinate" value={loadedTickets / 10000} style={{ marginTop: '-4px' }} />}
       <Main />
     </div>
   )

@@ -23,7 +23,7 @@ export interface SortType {
   ticketSortingMethod: SortCriteria
 }
 
-export interface Ticket {
+export interface TicketType {
   price: number
   carrier: string
   segments: [
@@ -44,15 +44,19 @@ export interface Ticket {
   ]
 }
 
+export interface TicketProps {
+  ticket: TicketType
+}
+
 export interface TicketsType {
-  searchId: undefined | string
-  list: Ticket[]
+  searchId: null | string
+  list: TicketType[]
   loading: boolean
   error: null | string
 }
 
 export interface TicketsResponseType {
-  tickets: Ticket[]
+  tickets: TicketType[]
   stop: boolean
 }
 

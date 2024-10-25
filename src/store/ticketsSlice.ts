@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { SeacrhIdResponseType, TicketsType } from '../types/type'
+import { SeacrhIdResponseType, TicketsResponseType, TicketsType } from '../types/type'
+
+import { RootState } from './types'
 
 export const fetchSearchId = createAsyncThunk<SeacrhIdResponseType>('tickets/fetchSearchId', async () => {
   const response = await fetch('https://aviasales-test-api.kata.academy/search')
@@ -8,8 +10,18 @@ export const fetchSearchId = createAsyncThunk<SeacrhIdResponseType>('tickets/fet
   return searchId
 })
 
+export const fetchTickets = createAsyncThunk<TicketsResponseType, void, { state: RootState }>(
+  'tickets/fetchTickets',
+  async (_, { getState }) => {
+    const state = getState()
+    const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${state.tickets.searchId}`)
+    const tickets = await response.json()
+    return tickets
+  }
+)
+
 const initialState: TicketsType = {
-  searchId: undefined,
+  searchId: null,
   list: [],
   loading: false,
   error: null,
@@ -33,6 +45,15 @@ const ticketsSlice = createSlice({
       .addCase(fetchSearchId.fulfilled, (state, action) => {
         state.searchId = action.payload.searchId
         state.loading = false
+      })
+      .addCase(fetchTickets.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchTickets.fulfilled, (state, action) => {
+        state.loading = false
+        state.error = null
+        state.list = action.payload.tickets
       })
   },
 })

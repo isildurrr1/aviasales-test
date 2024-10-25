@@ -27,7 +27,7 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
-    indent: ['error', 2],
+    // indent: ['error', 2],
     'prettier/prettier': 'error',
     'linebreak-style': [0, 'unix'],
     quotes: ['error', 'single'],
