@@ -10,14 +10,7 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <Header />
-      {loading && (
-        <LinearProgress
-          variant="determinate"
-          value={progress}
-          className="app__progress"
-          style={{ marginTop: '-4px' }}
-        />
-      )}
+      {loading && <LinearProgress variant="determinate" value={progress} className="app__progress" />}
       <Main />
     </div>
   )

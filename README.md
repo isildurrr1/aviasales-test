@@ -1,6 +1,6 @@
 # Тестовое задание Aviasales
 
-## [Ссылка на Vercel](https://)
+## [Ссылка на Vercel](https://aviasales-test-alpha.vercel.app/)
 
 Основной frontend проект нашей команды — это страница выдачи билетов со множеством фильтров, настроек и, собственно, билетов.
 Проект написан на React, поэтому тестовое задание приближено к ежедневным задачам.
@@ -22,7 +22,7 @@ https://github.com/KosyanMedia/test-tasks/raw/f0f60244b045928746188a86ba4f76ddb5
 
 Figma
 
-![](search_preview.png?raw=true)
+![](./public/images/search_preview.png?raw=true)
 
 Удачи! Если будут какие-то вопросы, пиши – добавим уточнения в репу.
 

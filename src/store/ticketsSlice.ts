@@ -11,14 +11,13 @@ export const fetchSearchId = createAsyncThunk<SeacrhIdResponseType>('tickets/fet
 
 export const fetchTickets = createAsyncThunk<fetchTicketsType | null, void, { state: RootState }>(
   'tickets/fetchTickets',
-  // async (_, { dispatch, getState }) => {
-  async (_, { getState }) => {
+  async (_, { dispatch, getState }) => {
     const state = getState()
     try {
       const response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${state.tickets.searchId}`)
       const tickets = await response.json()
       if (!tickets.stop) {
-        // dispatch(fetchTickets())
+        dispatch(fetchTickets())
         return {
           tickets: tickets.tickets,
           stop: tickets.stop,
@@ -33,8 +32,7 @@ export const fetchTickets = createAsyncThunk<fetchTicketsType | null, void, { st
         checkboxes: state.checkboxes,
       }
     } catch (error) {
-      console.error('Ошибка при загрузке билетов, продолжаем:', error)
-      // dispatch(fetchTickets())
+      dispatch(fetchTickets())
       return null
     }
   }

@@ -9,8 +9,12 @@ const Filter: React.FC = () => {
   const { transfers } = checkboxesStore
   const dispatch = useAppDispatch()
 
-  const createActionCheckbox = (status: boolean, transferString: TransferKeysType) => {
-    return { checkState: status, transfer: transferString }
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>, transferType?: TransferKeysType): void => {
+    if (transferType) {
+      dispatch(toggleTransfer({ checkState: e.target.checked, transfer: transferType }))
+    } else {
+      dispatch(toggleAll(e.target.checked))
+    }
   }
 
   return (
@@ -23,7 +27,7 @@ const Filter: React.FC = () => {
             type="checkbox"
             id="all"
             checked={checkboxesStore.all}
-            onChange={(e) => dispatch(toggleAll(e.target.checked))}
+            onChange={(e) => handleToggle(e)}
           />
           <span className="filter__custom-checkbox" />
           Все
@@ -34,7 +38,7 @@ const Filter: React.FC = () => {
             type="checkbox"
             id="withOut"
             checked={transfers.direct}
-            onChange={(e) => dispatch(toggleTransfer(createActionCheckbox(e.target.checked, 'direct')))}
+            onChange={(e) => handleToggle(e, 'direct')}
           />
           <span className="filter__custom-checkbox" />
           Без пересадок
@@ -45,7 +49,7 @@ const Filter: React.FC = () => {
             type="checkbox"
             id="oneTransfer"
             checked={transfers.one}
-            onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'one' }))}
+            onChange={(e) => handleToggle(e, 'one')}
           />
           <span className="filter__custom-checkbox" />1 пересадка
         </label>
@@ -55,7 +59,7 @@ const Filter: React.FC = () => {
             type="checkbox"
             id="twoTransfer"
             checked={transfers.two}
-            onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'two' }))}
+            onChange={(e) => handleToggle(e, 'two')}
           />
           <span className="filter__custom-checkbox" />2 пересадки
         </label>
@@ -65,7 +69,7 @@ const Filter: React.FC = () => {
             type="checkbox"
             id="threeTransfer"
             checked={transfers.three}
-            onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'three' }))}
+            onChange={(e) => handleToggle(e, 'three')}
           />
           <span className="filter__custom-checkbox" />3 пересадки
         </label>
