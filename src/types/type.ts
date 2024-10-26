@@ -55,7 +55,7 @@ export interface TicketsType {
   error: null | string
 }
 
-export interface fetchTicketsType {
+export interface FetchTicketsType {
   tickets: TicketType[]
   stop: boolean
   ticketSortingMethod: SortCriteria

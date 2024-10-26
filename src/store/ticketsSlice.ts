@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
-import { fetchTicketsType, RootState, SeacrhIdResponseType, SortCriteria, TicketsType } from '../types/type'
+import { FetchTicketsType, RootState, SeacrhIdResponseType, SortCriteria, TicketsType } from '../types/type'
 import { sortTickets } from '../utils/func'
 
 export const fetchSearchId = createAsyncThunk<SeacrhIdResponseType>('tickets/fetchSearchId', async () => {
@@ -9,7 +9,7 @@ export const fetchSearchId = createAsyncThunk<SeacrhIdResponseType>('tickets/fet
   return searchId
 })
 
-export const fetchTickets = createAsyncThunk<fetchTicketsType | null, void, { state: RootState }>(
+export const fetchTickets = createAsyncThunk<FetchTicketsType | null, void, { state: RootState }>(
   'tickets/fetchTickets',
   async (_, { dispatch, getState }) => {
     const state = getState()
