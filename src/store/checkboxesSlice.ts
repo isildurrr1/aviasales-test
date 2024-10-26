@@ -3,12 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { CheckboxesType, ToggleTransferActionType } from '../types/type'
 
 const initialState: CheckboxesType = {
-  all: false, // all checked/unchecked
+  all: true, // all checked/unchecked
   transfers: {
-    direct: false, // direct flight
-    one: false, // one transfer
-    two: false, // two transfers
-    three: false, // three transfers
+    direct: true, // direct flight
+    one: true, // one transfer
+    two: true, // two transfers
+    three: true, // three transfers
   },
 }
 
@@ -23,7 +23,9 @@ const checkboxesSlice = createSlice({
           state.transfers[key as keyof typeof state.transfers] = true
         })
       } else {
-        state.transfers = initialState.transfers
+        Object.keys(state.transfers).forEach((key) => {
+          state.transfers[key as keyof typeof state.transfers] = false
+        })
       }
     },
     toggleTransfer(state, action: PayloadAction<ToggleTransferActionType>) {

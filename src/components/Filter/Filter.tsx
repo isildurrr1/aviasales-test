@@ -6,6 +6,7 @@ import { TransferKeysType } from '../../types/type'
 
 const Filter: React.FC = () => {
   const checkboxesStore = useAppSelector((state) => state.checkboxes)
+  const { transfers } = checkboxesStore
   const dispatch = useAppDispatch()
 
   const createActionCheckbox = (status: boolean, transferString: TransferKeysType) => {
@@ -32,7 +33,7 @@ const Filter: React.FC = () => {
             className="filter__checkbox"
             type="checkbox"
             id="withOut"
-            checked={checkboxesStore.transfers.direct}
+            checked={transfers.direct}
             onChange={(e) => dispatch(toggleTransfer(createActionCheckbox(e.target.checked, 'direct')))}
           />
           <span className="filter__custom-checkbox" />
@@ -43,7 +44,7 @@ const Filter: React.FC = () => {
             className="filter__checkbox"
             type="checkbox"
             id="oneTransfer"
-            checked={checkboxesStore.transfers.one}
+            checked={transfers.one}
             onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'one' }))}
           />
           <span className="filter__custom-checkbox" />1 пересадка
@@ -53,7 +54,7 @@ const Filter: React.FC = () => {
             className="filter__checkbox"
             type="checkbox"
             id="twoTransfer"
-            checked={checkboxesStore.transfers.two}
+            checked={transfers.two}
             onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'two' }))}
           />
           <span className="filter__custom-checkbox" />2 пересадки
@@ -63,7 +64,7 @@ const Filter: React.FC = () => {
             className="filter__checkbox"
             type="checkbox"
             id="threeTransfer"
-            checked={checkboxesStore.transfers.three}
+            checked={transfers.three}
             onChange={(e) => dispatch(toggleTransfer({ checkState: e.target.checked, transfer: 'three' }))}
           />
           <span className="filter__custom-checkbox" />3 пересадки

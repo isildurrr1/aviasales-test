@@ -1,6 +1,6 @@
 import { add, format, parseISO } from 'date-fns'
 
-import { SortCriteria, TicketType } from '../types/type'
+import { CheckboxesType, SortCriteria, TicketType } from '../types/type'
 
 export const stops = (stopsLength: number): string => {
   switch (stopsLength) {
@@ -48,4 +48,18 @@ export const sortTickets = (tickets: TicketType[], sortingMethod: SortCriteria):
     })
   }
   return result
+}
+
+export const filterTickets = (checkboxesState: CheckboxesType, ticket: TicketType): boolean => {
+  if (checkboxesState.all) {
+    return true
+  }
+  const stopsCount1 = ticket.segments[0].stops.length
+  const stopsCount2 = ticket.segments[1].stops.length
+  return (
+    (checkboxesState.transfers.direct && (stopsCount1 === 0 || stopsCount2 === 0)) ||
+    (checkboxesState.transfers.one && (stopsCount1 === 1 || stopsCount2 === 1)) ||
+    (checkboxesState.transfers.two && (stopsCount1 === 2 || stopsCount2 === 2)) ||
+    (checkboxesState.transfers.three && (stopsCount1 === 3 || stopsCount2 === 3))
+  )
 }
