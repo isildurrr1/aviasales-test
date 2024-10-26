@@ -17,7 +17,7 @@ export interface ToggleTransferActionType {
   transfer: TransferKeysType
 }
 
-export type SortCriteria = 'cheap' | 'fast'
+export type SortCriteria = 'cheap' | 'fast' | 'optim'
 
 export interface SortType {
   ticketSortingMethod: SortCriteria
@@ -58,7 +58,7 @@ export interface TicketsType {
 export interface fetchTicketsType {
   tickets: TicketType[]
   stop: boolean
-  sort: SortType
+  ticketSortingMethod: SortCriteria
   checkboxes: CheckboxesType
 }
 

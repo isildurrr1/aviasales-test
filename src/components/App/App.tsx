@@ -6,12 +6,17 @@ import Main from '../Main/Main'
 import './app/app.sass'
 
 const App: React.FC = () => {
-  const { loading, loadedTickets } = useTickets()
+  const { loading, progress } = useTickets()
   return (
     <div className="app">
       <Header />
       {loading && (
-        <LinearProgress variant="determinate" value={(loadedTickets / 10500) * 100} style={{ marginTop: '-4px' }} />
+        <LinearProgress
+          variant="determinate"
+          value={progress}
+          className="app__progress"
+          style={{ marginTop: '-4px' }}
+        />
       )}
       <Main />
     </div>

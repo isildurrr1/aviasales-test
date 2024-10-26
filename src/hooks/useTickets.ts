@@ -28,7 +28,7 @@ const useTickets = () => {
     fetchTicketsData()
   }, [dispatch, searchId])
 
-  return { loading, loadedTickets }
+  return { loading, progress: (loadedTickets / 10500) * 100 }
 }
 
 export default useTickets
