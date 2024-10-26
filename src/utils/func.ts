@@ -31,22 +31,19 @@ export const formatFlightTimeInterval = (isoString: string, minutes: number): st
 }
 
 export const sortTickets = (tickets: TicketType[], sortingMethod: SortCriteria): TicketType[] => {
-  let result = tickets
+  const result = tickets.map((ticket) => {
+    const totalDuration = ticket.segments.reduce((acc, segment) => acc + segment.duration, 0)
+    return { ...ticket, totalDuration }
+  })
+
   if (sortingMethod === 'cheap') {
-    result = tickets.sort((a, b) => a.price - b.price)
+    result.sort((a, b) => a.price - b.price)
   } else if (sortingMethod === 'fast') {
-    result = tickets.sort((a, b) => {
-      const totalDurationA = a.segments[0].duration + a.segments[1].duration
-      const totalDurationB = b.segments[0].duration + b.segments[1].duration
-      return totalDurationA - totalDurationB
-    })
+    result.sort((a, b) => a.totalDuration - b.totalDuration)
   } else if (sortingMethod === 'optim') {
-    result = tickets.sort((a, b) => {
-      const totalOptA = a.segments[0].duration + a.segments[1].duration + a.price
-      const totalOptB = b.segments[0].duration + b.segments[1].duration + b.price
-      return totalOptA - totalOptB
-    })
+    result.sort((a, b) => a.totalDuration + a.price - (b.totalDuration + b.price))
   }
+
   return result
 }
 
